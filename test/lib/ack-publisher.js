@@ -7,10 +7,10 @@ var AckPublisher = exports.AckPublisher = function(emitter){
     });
     
     emitter.on("heartbeat", function(heartbeat){
-        emitter.emit("ack", atomicEvent.level, heartbeat.msg, heartbeat);
+        emitter.emit("ack", heartbeat.level, heartbeat.msg, heartbeat);
     });
     
     emitter.on("transaction", function(tx){
-        emitter.emit("ack", atomicEvent.level, tx.msg, tx);
+        emitter.emit("ack", tx.level, tx.msg, tx);
     });
 };

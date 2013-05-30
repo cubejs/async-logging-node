@@ -10,12 +10,13 @@ describe("log-cluster", function(){
     describe("log", function(){
 
         var emitter = new EventEmitter();
-        var cluster = new LogCluster({port:7900, LogPublisher:new AckPublisher(emitter)});
-        var client = new LogClient({url:"http://localhost:7900", emitter:process});
+        var cluster = new LogCluster({port:7770, LogPublisher:AckPublisher}, emitter);
+        var client = new LogClient({url:"http://localhost:7770", emitter:process, protocol:"log-protocol"});
        
         it("should emit heartbeat when log type is heartbeat", function(done){
 
-            var req = "request-" + new Date().getTime();
+            var req = "request-" + new Date().getTime(),
+                deferred = Q.defer();
             process.emit("log", {
                 uuid: req,
                 type: "heartbeat",
@@ -24,10 +25,6 @@ describe("log-cluster", function(){
                 log: "this is a heartbeat"
             });
             
-            var deferred = Q.defer(),
-                emitter = new EventEmitter(),
-                buffer = new LogBuffer(emitter);//default mapper
-
             emitter.on("heartbeat", function(heartbeat){
                 deferred.resolve(heartbeat);
             });
