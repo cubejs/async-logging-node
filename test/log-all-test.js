@@ -10,7 +10,7 @@ describe("log-cluster", function(){
     describe("log", function(){
 
         var emitter = new EventEmitter();
-        var cluster = new LogCluster({port:7770, LogPublisher:AckPublisher}, emitter);
+        var cluster = new LogCluster({port:7770, noWorkers:2, LogPublisher:AckPublisher}, emitter);
         var client = new LogClient({url:"http://localhost:7770", emitter:process, protocol:"log-protocol"});
        
         it("should emit heartbeat when log type is heartbeat", function(done){

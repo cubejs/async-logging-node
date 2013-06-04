@@ -10,11 +10,11 @@
         "node": ">= 0.8.0"
     },
     "dependencies": {
-        "websocket": "1.0.8",
-        "msgpack": "0.1.8",
-        "underscore": "1.4.4",
-        "cluster2": "git://github.com/cubejs/cluster2.git",
-        "winston": "0.7.1"
+        "websocket": "~1.0.8",
+        "msgpack": "~0.1.8",
+        "underscore": "~1.4.4",
+        "cluster2": "~0.4.0",
+        "winston": "~0.7.1"
     },
     "devDependencies": {
         "express": "~3.2",
