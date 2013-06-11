@@ -22,5 +22,8 @@
         "redis": "",
         "should": "",
         "q": ""
+    },
+    "scripts":{
+        "start":"node ./lib/log-server.js"
     }
 }
