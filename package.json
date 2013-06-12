@@ -9,6 +9,7 @@
     "engines": {
         "node": ">= 0.8.0"
     },
+    "main":"./lib/log-cluster.js",
     "dependencies": {
         "websocket": "~1.0.8",
         "msgpack": "~0.1.8",
@@ -22,5 +23,8 @@
         "redis": "",
         "should": "",
         "q": ""
+    },
+    "scripts":{
+        "start":"node ./lib/log-server.js"
     }
 }
