@@ -8,7 +8,7 @@ This module is trying to solve the discrepancy between the async model & the com
 * **Transaction**: this is the key structure we're trying to restore from async events model
 * **Logging proxy**: part of this module builds a proxy service which is a websocket server accepting log payload as message pack
 * **Logging client**: the other part is a client which runs in the application runtime, connecting to websocket, and transferring the log event over
-* **MonApp**: optional monitoring app which can generate heartbeat logs such as 
+* **MonApp**: optional monitoring app which can generate heartbeat logs
 
 
 ## API
