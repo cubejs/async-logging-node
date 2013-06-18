@@ -4,7 +4,7 @@
     "version": "0.1.1",
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/cubejs/async-logging-node.git"
     },
     "engines": {
         "node": ">= 0.8.0"
