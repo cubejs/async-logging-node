@@ -308,7 +308,7 @@ describe("log-listener", function(){
                 log: "this is a transaction's end"
             });
 
-            Q.allResolved(hbDeferred, aeDeferred, txDeferred)
+            Q.allSettled([hbDeferred.promise, aeDeferred.promise, txDeferred.promise])
                 .then(function(){
 
                     buffer.heartbeats.should.not.be.empty;
