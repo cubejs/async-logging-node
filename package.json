@@ -1,7 +1,7 @@
 {
     "author": "cubejs",
     "name": "async-logging",
-    "version": "0.1.5",
+    "version": "0.2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/cubejs/async-logging-node.git"
