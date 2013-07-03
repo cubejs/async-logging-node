@@ -19,10 +19,9 @@
     },
     "devDependencies": {
         "express": "~3.2",
-        "mocha": "",
-        "redis": "",
-        "should": "",
-        "q": ""
+        "mocha": "~1.11.0",
+        "should": "~1.2.2",
+        "q": "~0.9.6"
     },
     "scripts":{
         "start":"node ./lib/log-server.js"
