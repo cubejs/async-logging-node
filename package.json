@@ -1,7 +1,7 @@
 {
     "author": "cubejs",
     "name": "async-logging",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/cubejs/async-logging-node.git"
@@ -9,13 +9,14 @@
     "engines": {
         "node": ">= 0.8.0"
     },
-    "main":"./lib/log-cluster.js",
+    "main":"./lib/index.js",
     "dependencies": {
         "websocket": "~1.0.8",
         "msgpack": "~0.1.8",
         "underscore": "~1.4.4",
         "cluster2": "~0.4.0",
-        "winston": "~0.7.1"
+        "winston": "~0.7.1",
+        "request": "~2.22.0"
     },
     "devDependencies": {
         "express": "~3.2",
