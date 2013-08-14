@@ -10,7 +10,7 @@ install:
 .PHONY : test
 test: 
 	export NODE_PATH=./node_modules;\
-	node_modules/mocha/bin/_mocha --timeout 10s test/log-staging.js
+	node_modules/mocha/bin/_mocha --timeout 20s test/log-staging.js
 
 test-debug:
 	export NODE_PATH=./node_modules;\
