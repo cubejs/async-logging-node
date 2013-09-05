@@ -1,7 +1,7 @@
 {
     "author": "cubejs",
     "name": "async-logging",
-    "version": "0.1.12",
+    "version": "0.1.14",
     "description": "0.1.6 is the same as 0.2.2 just to get around ebay-logging-client vs. async-logging-client change",
     "repository": {
         "type": "git",
