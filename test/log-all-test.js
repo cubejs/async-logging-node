@@ -11,6 +11,7 @@
 
          var emitter = new EventEmitter(),
         	 cluster = new LogCluster({
+                    'monApp': new (require('express'))(),
 	        	 	'port':7770, 
 	        	 	'noWorkers':2, 
 	        	 	'LogPublisher':AckPublisher,
