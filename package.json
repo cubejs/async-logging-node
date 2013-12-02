@@ -1,8 +1,8 @@
 {
     "author": "cubejs",
     "name": "async-logging",
-    "version": "0.5.0-SNAPSHOT",
-    "description": "0.1.6 is the same as 0.2.2 just to get around ebay-logging-client vs. async-logging-client change",
+    "version": "0.5.0-1125132700",
+    "description": "async-logging working with cluster ~0.5.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/cubejs/async-logging-node.git"
@@ -28,6 +28,7 @@
     },
     "scripts":{
         "start":"node ./lib/log-server.js",
+        "pretest": "rm -rf ./cluster-cache-persist ./cluster-cache-domain",
         "test": "mocha --ui bdd --timeout 10s --reporter spec  ./test/*-test.js"
     }
 }

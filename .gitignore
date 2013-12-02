@@ -9,3 +9,4 @@ reports
 target
 docs
 logs
+cluster-cache-*
