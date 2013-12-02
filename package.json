@@ -1,7 +1,7 @@
 {
     "author": "cubejs",
     "name": "async-logging",
-    "version": "0.5.0-1125132700",
+    "version": "0.5.0-SNAPSHOT",
     "description": "async-logging working with cluster ~0.5.0",
     "repository": {
         "type": "git",
@@ -30,5 +30,8 @@
         "start":"node ./lib/log-server.js",
         "pretest": "rm -rf ./cluster-cache-persist ./cluster-cache-domain",
         "test": "mocha --ui bdd --timeout 10s --reporter spec  ./test/*-test.js"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
     }
 }
