@@ -1,6 +1,7 @@
 var EventEmitter = require('events').EventEmitter,
     LogBuffer = require('../lib/log-buffer.js').LogBuffer,
-    Q = require('q'),
+    when = require('when'),
+    timeout = require('when/timeout');
     should = require('should');
 
 describe('log-listener', function(){
@@ -9,7 +10,7 @@ describe('log-listener', function(){
 
         it('should emit heartbeat when log type is heartbeat', function(done){
 
-            var deferred = Q.defer(),
+            var deferred = when.defer(),
                 emitter = new EventEmitter(),
                 buffer = new LogBuffer(emitter);//default mapper
 
@@ -33,19 +34,18 @@ describe('log-listener', function(){
                 deferred.reject(new Error('timeout after 1s'));
             }, 1000);
 
-            deferred.promise.then(function(heartbeat){
-                heartbeat.type.should.equal('heartbeat');
-                heartbeat.parent.should.equal('0');
-                heartbeat.event.should.equal('1');
-            })
-            .fin(function(){
-                done();
-            });
+            timeout(1000, deferred.promise)
+                .then(function(heartbeat){
+                    heartbeat.type.should.equal('heartbeat');
+                    heartbeat.parent.should.equal('0');
+                    heartbeat.event.should.equal('1');
+                })
+                .ensure(done);
         });
 
         it('should emit atomicEvent when log type is atomicEvent', function(done){
 
-            var deferred = Q.defer(),
+            var deferred = when.defer(),
                 emitter = new EventEmitter(),
                 buffer = new LogBuffer(emitter);//default mapper
 
@@ -69,18 +69,17 @@ describe('log-listener', function(){
                 deferred.reject(new Error('timeout after 1s'));
             }, 1000);
 
-            deferred.promise.then(function(atomicEvent){
-                atomicEvent.type.should.equal('atomicEvent');
-                atomicEvent.parent.should.equal('0');
-                atomicEvent.event.should.equal('2');
-            })
-            .fin(function(){
-                done();
-            });
+            timeout(1000, deferred.promise)
+                .then(function(atomicEvent){
+                    atomicEvent.type.should.equal('atomicEvent');
+                    atomicEvent.parent.should.equal('0');
+                    atomicEvent.event.should.equal('2');
+                })
+                .ensure(done);
         });
 
         it('should buffer the transaction till its end when log type is transaction', function(done){
-            var deferred = Q.defer(),
+            var deferred = when.defer(),
                 emitter = new EventEmitter(),
                 buffer = new LogBuffer(emitter);//default mapper
 
@@ -109,17 +108,16 @@ describe('log-listener', function(){
                 deferred.reject(new Error('timeout after 1s'));
             }, 1000);
 
-            deferred.promise.then(function(transaction){
-                transaction.type.should.equal('transaction');
-                transaction.children.should.be.empty;
-            })
-            .fin(function(){
-                done();
-            });
+            timeout(1000, deferred.promise)
+                .then(function(transaction){
+                    transaction.type.should.equal('transaction');
+                    transaction.children.should.be.empty;
+                })
+                .ensure(done);
         });
 
         it('should buffer the transaction till its end for all of its children when log type is transaction', function(done){
-            var deferred = Q.defer(),
+            var deferred = when.defer(),
                 emitter = new EventEmitter(),
                 buffer = new LogBuffer(emitter);//default mapper
 
@@ -158,19 +156,18 @@ describe('log-listener', function(){
                 deferred.reject(new Error('timeout after 1s'));
             }, 1000);
 
-            deferred.promise.then(function(transaction){
-                transaction.type.should.equal('transaction');
-                transaction.children.should.not.be.empty;
-                transaction.children.length.should.equal(1);
-                transaction.children[0].type.should.equal('atomicEvent');
-            })
-            .fin(function(){
-                done();
-            });
+            timeout(1000, deferred.promise)
+                .then(function(transaction){
+                    transaction.type.should.equal('transaction');
+                    transaction.children.should.not.be.empty;
+                    transaction.children.length.should.equal(1);
+                    transaction.children[0].type.should.equal('atomicEvent');
+                })
+                .ensure(done);
         });
 
         it('should support nested transactions', function(done){
-            var deferred = Q.defer(),
+            var deferred = when.defer(),
                 emitter = new EventEmitter(),
                 buffer = new LogBuffer(emitter);//default mapper
 
@@ -227,28 +224,26 @@ describe('log-listener', function(){
                 deferred.reject(new Error('timeout after 1s'));
             }, 1000);
 
-            deferred.promise.then(function(transaction){
-                transaction.type.should.equal('transaction');
-                transaction.children.should.not.be.empty;
-                transaction.children.length.should.equal(1);
-                transaction.children[0].type.should.equal('transaction');
-                transaction.children[0].children.should.not.be.empty;
-                transaction.children[0].children[0].type.should.equal('atomicEvent');
-            })
-            .fin(function(){
-                done();
-            });
+            timeout(1000, deferred.promise)
+                .then(function(transaction){
+                    transaction.type.should.equal('transaction');
+                    transaction.children.should.not.be.empty;
+                    transaction.children.length.should.equal(1);
+                    transaction.children[0].type.should.equal('transaction');
+                    transaction.children[0].children.should.not.be.empty;
+                    transaction.children[0].children[0].type.should.equal('atomicEvent');
+                })
+                .ensure(done);
         });
     });
 
     describe('clean', function(){
+
         it('should allow #clean to be done when "clean" event is handled', function(done){
 
             this.timeout(1000000);
 
-            debugger;
-
-            var hbDeferred = Q.defer(),
+            var hbDeferred = when.defer(),
                 emitter = new EventEmitter(),
                 buffer = new LogBuffer(emitter);//default mapper
 
@@ -268,7 +263,7 @@ describe('log-listener', function(){
                 }
             });
 
-            var aeDeferred = Q.defer();
+            var aeDeferred = when.defer();
 
             emitter.once('atomicEvent', function(atomicEvent){
                 aeDeferred.resolve(atomicEvent);
@@ -286,7 +281,7 @@ describe('log-listener', function(){
                 }
             });
 
-            var txDeferred = Q.defer();
+            var txDeferred = when.defer();
 
             emitter.once('transaction', function(transaction){
                 txDeferred.resolve(transaction);
@@ -311,7 +306,7 @@ describe('log-listener', function(){
                 'log': 'this is a transactions end'
             });
 
-            Q.allSettled([hbDeferred.promise, aeDeferred.promise, txDeferred.promise])
+            when.all([hbDeferred.promise, aeDeferred.promise, txDeferred.promise])
                 .then(function(){
 
                     buffer.heartbeats.should.not.be.empty;
@@ -320,13 +315,17 @@ describe('log-listener', function(){
                     buffer.transactions[req].should.be.ok;
 
                     var now = new Date().getTime();
+
                     emitter.once('cleaned', function(cleaned){
+
                         cleaned.till.should.equal(now);
+
                         done();
                     });
 
                     emitter.emit('clean', now);
-                });
+                })
+                .otherwise(done);
         });
     });
 });

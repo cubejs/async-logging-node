@@ -1,8 +1,8 @@
 {
     "author": "cubejs",
     "name": "async-logging",
-    "version": "0.1.21",
-    "description": "0.1.6 is the same as 0.2.2 just to get around ebay-logging-client vs. async-logging-client change",
+    "version": "0.5.0-SNAPSHOT",
+    "description": "async-logging working with cluster ~0.5.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/cubejs/async-logging-node.git"
@@ -15,7 +15,7 @@
         "websocket": "~1.0.8",
         "msgpack": "0.1.8",
         "underscore": "~1.4.4",
-        "cluster2": "~0.4.6",
+        "cluster2": "~0.5.0",
         "winston": "~0.7.1",
         "request": "~2.22.0",
         "connect": "~2.7.5"
@@ -24,10 +24,14 @@
         "express": "~3.1",
         "mocha": "~1.11.0",
         "should": "~1.2.2",
-        "q": "~0.9.6"
+        "when": "~2.4.0"
     },
     "scripts":{
         "start":"node ./lib/log-server.js",
+        "pretest": "rm -rf ./cluster-cache-persist ./cluster-cache-domain",
         "test": "mocha --ui bdd --timeout 10s --reporter spec  ./test/*-test.js"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
     }
 }
