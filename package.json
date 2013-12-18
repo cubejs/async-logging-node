@@ -12,24 +12,24 @@
     },
     "main":"./lib/index.js",
     "dependencies": {
+        "underscore": "~1.5.2",
         "websocket": "~1.0.8",
-        "msgpack": "0.1.8",
-        "underscore": "~1.4.4",
-        "cluster2": "~0.5.0",
+        "request": "~2.30.0",
         "winston": "~0.7.1",
-        "request": "~2.22.0",
-        "connect": "~2.7.5"
+        "connect": "~2.7.5",
+        "msgpack": "0.1.8"
     },
     "devDependencies": {
-        "express": "~3.1",
-        "mocha": "~1.11.0",
+        "cluster2": "~0.5.0",
         "should": "~1.2.2",
-        "when": "~2.4.0"
+        "mocha": "~1.15.0",
+        "express": "~3.1",
+        "when": "~2.7.0"
     },
     "scripts":{
         "start":"node ./lib/log-server.js",
-        "pretest": "rm -rf ./cluster-cache-persist ./cluster-cache-domain",
-        "test": "mocha --ui bdd --timeout 10s --reporter spec  ./test/*-test.js"
+        "pretest": "rm -rf ./cluster-cache-* ./log ./pids",
+        "test": "mocha --ui bdd --timeout 10s --reporter spec ./test/*-test.js"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org"
