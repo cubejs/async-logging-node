@@ -13,7 +13,7 @@
     "main":"./lib/index.js",
     "dependencies": {
         "websocket": "~1.0.8",
-        "msgpack": "0.1.8",
+        "msgpack": "0.2.3",
         "underscore": "~1.4.4",
         "cluster2": "~0.4.6",
         "winston": "~0.7.1",
